@@ -26,13 +26,13 @@ uri = 'https://www.amazon.co.jp/'
 category = 'books'
 
 #Gmailの認証データ
-smtp_host = os.environ["smtp_host"] #'smtp.gmail.com'
-smtp_port = os.environ["smtp_port"] #587
-from_email = os.environ["from_email"] #'startup.anazawa@gmail.com' # 送信元のアドレス
-to_email = os.environ["to_email"] #'junichi.anazawa@ccc.co.jp' # 送りたい先のアドレス 追加時は,で追加
-bcc_email = os.environ["bcc_email"]  #"tae.ishiwari@ccc.co.jp" #Bccのアドレス追加
-username = os.environ["username"] #'startup.anazawa@gmail.com' # Gmailのアドレス
-password = os.environ["password"] #'sncehunqsemaprkh' # Gmailのパスワード
+smtp_host = os.environ["smtp_host"] 
+smtp_port = os.environ["smtp_port"] 
+from_email = os.environ["from_email"] # 送信元のアドレス
+to_email = os.environ["to_email"]  # 送りたい先のアドレス 追加時は,で追加
+bcc_email = os.environ["bcc_email"]  #Bccのアドレス追加
+username = os.environ["username"] # Gmailのアドレス
+password = os.environ["password"] # Gmailのパスワード
 
 
 def pages():
