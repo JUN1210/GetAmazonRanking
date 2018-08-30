@@ -20,6 +20,7 @@ import re
 import pandas as pd
 from email import message
 import smtplib
+import os
 
 #url = "https://www.amazon.co.jp/gp/top-sellers/books" の情報を取得する
 uri = 'https://www.amazon.co.jp/'
