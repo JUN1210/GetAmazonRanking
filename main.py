@@ -46,7 +46,7 @@ def pages():
 # ?pg=1, ?pg=2 , ..., ?pg=5 で100位までのランキングページにアクセスできます。
 
 #urlsリストのページ情報を取得
-@retry(urllib.error.HTTPError, tries=7, delay=1)
+@retry(urllib.error.HTTPError, tries=10, delay=1)
 def soup_url(urls):
     soups = []
     for url in urls:
