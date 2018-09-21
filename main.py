@@ -73,7 +73,7 @@ def checkdigit(code):
 #取得したページの情報から、必要なデータを抜き出す
 @retry(urllib.error.HTTPError, tries=7, delay=1)
 def get_ISBN(soups):
-    df = pd.DataFrame(index=[],columns=["ranking", "title", "author", "jan", "price"])
+    df = pd.DataFrame(index=[],columns=["ranking", "title", "author", "jan", "price", "releaseDate"])
     for soup in soups:
         for el in soup.find_all("div", class_="zg_itemRow"):
             rank  = el.find("span", class_="zg_rankNumber").string.strip()
@@ -98,9 +98,19 @@ def get_ISBN(soups):
             
             jan12 = "978" + asin
             checkd = checkdigit(jan12)
-            jan13 = jan12[:-1] + str(checkd)           
-#            print("{} {} {} {} {}".format(rank, price, title, author, jan13))
-            series = pd.Series([rank, title, author, str(jan13), price], index = df.columns)
+            jan13 = jan12[:-1] + str(checkd)  
+            
+            # 発売日追加
+            releaseDate = el.find("div", class_="zg_releaseDate")
+            if releaseDate:
+                releaseDate = releaseDate.string.strip()
+                releaseDate = releaseDate.replace("出版日: ", "")
+                releaseDate = releaseDate.replace("発売日: ", "")
+            else:
+                releaseDate = "発売済"
+
+          #  print("{} {} {} {} {}".format(rank, price, title, author, jan13))
+            series = pd.Series([rank, title, author, str(jan13), price, releaseDate], index = df.columns)
             df = df.append(series, ignore_index = True)
     return df
 
