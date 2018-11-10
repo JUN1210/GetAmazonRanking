@@ -147,8 +147,10 @@ def main():
     urls = pages()
     soups = soup_url(urls)
     ranking_df = get_ISBN(soups)
+    with open("topsellerBooks.csv",mode="w",encoding="cp932",errors="ignore")as f:
+        ranking_df.to_csv(f)
 #    print(ranking_df)        
-    ranking_df.to_csv("topsellerBooks.csv", encoding="cp932", errors='ignore')
+#    ranking_df.to_csv("topsellerBooks.csv", encoding="cp932", errors='ignore')
     mail()
 
 if __name__ == '__main__':
