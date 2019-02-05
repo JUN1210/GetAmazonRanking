@@ -149,9 +149,11 @@ def main():
     ranking_df = get_ISBN(soups)
     with open("topsellerBooks.csv",mode="w",encoding="cp932",errors="ignore")as f:
         ranking_df.to_csv(f)
-#    print(ranking_df)        
-#    ranking_df.to_csv("topsellerBooks.csv", encoding="cp932", errors='ignore')
+    mail()
+    with open("topsellerBooks.csv",mode="w",encoding="utf-8",errors="ignore")as f:
+        ranking_df.to_csv(f)
     mail()
 
+    
 if __name__ == '__main__':
     main()
