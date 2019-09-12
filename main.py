@@ -37,7 +37,7 @@ password = os.environ["password"] # Gmailのパスワード
 
 
 def pages():
-    pages =[1,2,3,4,5] #取得するRankingの順位を増やしたいときはここを増やす
+    pages =[1,2] #取得するRankingの順位を増やしたいときはここを増やす
     urls = []
     for page in pages:
         url = uri + 'gp/bestsellers/' + category + '?pg=' + str(page)    
@@ -75,16 +75,20 @@ def checkdigit(code):
 def get_ISBN(soups):
     df = pd.DataFrame(index=[],columns=["ranking", "title", "author", "jan", "price", "releaseDate"])
     for soup in soups:
-        for el in soup.find_all("div", class_="zg_itemRow"):
-            rank  = el.find("span", class_="zg_rankNumber").string.strip()
-            title  = el.find_all("div", class_="p13n-sc-truncate")[0].string.strip()
-            author = el.find("a", class_="a-size-small")
+        for el in soup.find_all("div", class_="aok-relative"):
+            rank = el.find("span", class_="zg-badge-text").string.strip()
+            
+            title = el.find("img").get("alt")
+            if title:
+                title = title.strip()
+            else:
+                title = "no title"
+
+            author = el.find("a", class_="a-link-child")
             if author:
                 author = author.string.strip()
             else:
-                author = el.find("span", class_="a-size-small").string.strip()
-            if author.isdigit():
-                author = el.find("span", class_="a-size-small").string.strip()                
+                author = el.find("span", class_="a-link-child")
 
             price = el.find("span", class_="p13n-sc-price")
             if price:
